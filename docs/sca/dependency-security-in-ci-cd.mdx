@@ -1,0 +1,59 @@
+---
+id: dependency-security-in-ci-cd
+title: Dependency Security in CI/CD
+---
+
+# Dependency Security in CI/CD
+
+SCA finds vulnerable open source dependencies.
+
+This matters because modern applications depend on many packages from npm, PyPI, Maven, NuGet, Go modules, and container package repositories.
+
+## Dependabot YAML
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+```
+
+Save this as:
+
+```text
+.github/dependabot.yml
+```
+
+## OSV Scanner YAML
+
+```yaml
+name: dependency-security
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  osv-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: google/osv-scanner-action/osv-scanner-action@v2
+        with:
+          scan-args: |-
+            --recursive
+            ./
+```
+
+## Explanation
+
+Dependabot helps create upgrade pull requests.
+
+OSV Scanner helps detect known vulnerable dependencies during PR checks.
+
+For quality gates, block critical exploitable vulnerabilities first. Do not block every low severity issue from day one.

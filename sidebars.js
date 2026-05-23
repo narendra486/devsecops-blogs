@@ -3,18 +3,25 @@
 const sidebars = {
   tutorialSidebar: [
     'intro',
+    'learning-path-yaml',
     {
       type: 'category',
-      label: 'Phase 1: Foundation',
+      label: 'Fundamentals',
       items: [
         'fundamentals/cicd-security-fundamentals',
-        'fundamentals/shift-left-security',
         'fundamentals/where-should-security-run',
       ],
     },
     {
       type: 'category',
-      label: 'Layer 1: Local Developer Security',
+      label: 'Shift Left Security',
+      items: [
+        'fundamentals/shift-left-security',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Local Security',
       items: [
         'local-security/security-before-git-push',
         'local-security/pre-commit-security-scanning',
@@ -22,7 +29,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Layer 2: Pull Request Security',
+      label: 'PR Security',
       items: [
         'pull-request-security/building-secure-pr-pipelines',
         'pull-request-security/scanner-purpose-map',
@@ -30,25 +37,79 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Layer 3: CI/CD Pipeline Security',
+      label: 'CI Security',
       items: [
         'ci-security/github-actions-security',
+        'ci-security/ci-security-overview',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'CD Security',
+      items: [
         'cd-security/secure-deployment-approvals',
       ],
     },
     {
       type: 'category',
-      label: 'Security Quality Gates',
+      label: 'GitHub Security',
       items: [
-        'security-gates/blocking-pull-requests-based-on-risk',
+        'github-security/github-security-best-practices',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'SAST',
+      items: [
+        'sast/sast-in-ci-cd',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'SCA',
+      items: [
+        'sca/dependency-security-in-ci-cd',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'IaC Security',
+      items: [
+        'iac-security/scanning-terraform-and-kubernetes',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Container Security',
+      items: [
+        'container-security/securing-docker-images-in-ci-cd',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Supply Chain Security',
+      items: [
+        'supply-chain-security/securing-software-supply-chain',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'SARIF',
+      items: [
         'sarif-and-reporting/developer-friendly-security-feedback',
       ],
     },
     {
       type: 'category',
-      label: 'Advanced Topics',
+      label: 'Security Gates',
       items: [
-        'supply-chain-security/securing-software-supply-chain',
+        'security-gates/blocking-pull-requests-based-on-risk',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Enterprise DevSecOps',
+      items: [
         'enterprise-patterns/scaling-appsec-across-repositories',
       ],
     },

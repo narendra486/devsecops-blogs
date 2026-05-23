@@ -1,0 +1,68 @@
+---
+id: securing-docker-images-in-ci-cd
+title: Securing Docker Images in CI/CD
+---
+
+# Securing Docker Images in CI/CD
+
+Container security checks Dockerfiles, base images, operating system packages, and application dependencies inside the image.
+
+## Trivy Image Scan YAML
+
+```yaml
+name: container-security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  image-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t demo-app:${{ github.sha }} .
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: demo-app:${{ github.sha }}
+          format: sarif
+          output: trivy-image.sarif
+          severity: HIGH,CRITICAL
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-image.sarif
+```
+
+## Secure Dockerfile Example
+
+```dockerfile
+FROM node:24-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY . .
+
+USER node
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+## Explanation
+
+Container scans are better in CI because the final image must exist before scanning.
+
+Do not only scan the Dockerfile. Scan the built image also.

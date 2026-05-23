@@ -1,0 +1,47 @@
+---
+id: scanning-terraform-and-kubernetes
+title: Scanning Terraform and Kubernetes
+---
+
+# Scanning Terraform and Kubernetes
+
+IaC security finds cloud and Kubernetes misconfigurations before infrastructure is deployed.
+
+Common issues include public buckets, open security groups, privileged containers, missing encryption, and weak IAM permissions.
+
+## Checkov YAML
+
+```yaml
+name: iac-security
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform,kubernetes
+          output_format: cli,sarif
+          output_file_path: console,checkov.sarif
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: checkov.sarif
+```
+
+## Explanation
+
+Run IaC scanning on pull requests because infrastructure changes should be reviewed before merge.
+
+For production teams, make critical cloud misconfigurations blocking.

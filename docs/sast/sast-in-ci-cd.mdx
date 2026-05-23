@@ -1,0 +1,61 @@
+---
+id: sast-in-ci-cd
+title: SAST in CI/CD
+---
+
+# SAST in CI/CD
+
+SAST finds insecure code patterns before merge.
+
+It helps catch issues like injection, insecure deserialization, path traversal, weak crypto, and unsafe framework usage.
+
+## CodeQL YAML
+
+```yaml
+name: codeql
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+      - uses: github/codeql-action/analyze@v3
+```
+
+## Semgrep YAML
+
+```yaml
+name: semgrep
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: semgrep/semgrep-action@v1
+        with:
+          config: p/owasp-top-ten
+```
+
+## Explanation
+
+Use SAST in pull requests because developers can fix risky code before merge.
+
+For enterprise rollout, start with high-confidence rules. Add blocking only after false positives are tuned.
