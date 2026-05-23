@@ -3,7 +3,6 @@
 const sidebars = {
   tutorialSidebar: [
     'introduction',
-    'learning-path-yaml',
     {
       type: 'category',
       label: 'Foundations',
