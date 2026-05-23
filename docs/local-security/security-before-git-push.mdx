@@ -1,0 +1,38 @@
+---
+id: security-before-git-push
+title: Why Security Should Start Before Git Push
+---
+
+# Why Security Should Start Before Git Push
+
+The cheapest security issue is the one that never leaves the developer machine.
+
+Local security is not about blaming developers. It is about giving them fast feedback before a small mistake becomes a pull request failure or an incident.
+
+## Good Local Controls
+
+- secret detection,
+- dependency audit,
+- selected SAST rules,
+- commit signing,
+- secure Git hooks,
+- IDE security plugins,
+- and basic Dockerfile checks.
+
+## Example Local Commands
+
+```bash
+gitleaks detect --source . --redact
+npm audit --audit-level=high
+pip-audit
+semgrep scan --config p/owasp-top-ten
+```
+
+## What Not To Do
+
+Do not force every deep enterprise scan on every local commit.
+
+That will slow developers and they will avoid the controls.
+
+Keep local security fast, focused, and useful.
+

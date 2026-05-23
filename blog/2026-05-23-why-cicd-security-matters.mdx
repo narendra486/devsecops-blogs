@@ -1,0 +1,41 @@
+---
+slug: why-cicd-security-matters
+title: Why CI/CD Security Matters in Modern Engineering
+authors: [narendra]
+tags: [devsecops, cicd, appsec]
+---
+
+CI/CD security is not only a security team topic.
+
+It is an engineering quality topic.
+
+When a team ships through pipelines, the pipeline becomes part of the production trust boundary. That means pull requests, runners, secrets, workflows, dependencies, Docker images, and deployment approvals all need security thinking.
+
+<!-- truncate -->
+
+The first mistake many teams make is starting with tools.
+
+They ask:
+
+```text
+Should we use Trivy, Semgrep, CodeQL, Snyk, or Checkov?
+```
+
+The better question is:
+
+```text
+Which risk are we trying to stop, and at which stage should we stop it?
+```
+
+For example:
+
+| Risk | Best Early Control |
+| --- | --- |
+| Secret leak | pre-commit and PR secret scan |
+| Vulnerable dependency | SCA in pull request |
+| Insecure code | SAST in pull request |
+| Bad Terraform | IaC scan before merge |
+| Vulnerable image | Container scan in CI |
+
+This blog series will go slowly and practically. We will cover local security, pull request security, CI/CD hardening, quality gates, SARIF reporting, supply chain security, and enterprise DevSecOps patterns.
+

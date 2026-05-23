@@ -1,0 +1,72 @@
+---
+id: intro
+title: Practical CI/CD Security for Real Pipelines
+slug: /
+---
+
+# Practical CI/CD Security for Real Pipelines
+
+Most teams do not lose security because developers do not care.
+
+They lose security because security is added late, tools are noisy, and nobody clearly explains where each control should run in the software delivery flow.
+
+This series is written for developers, DevOps engineers, platform engineers, product security engineers, security champions, and students who want to learn DevSecOps in a practical way.
+
+The goal is not to collect tools. The goal is to understand how secure software delivery actually works.
+
+## Main Learning Path
+
+```text
+Phase 1: Foundation
+  What CI/CD is, why security matters, and how attacks reach pipelines
+
+Layer 1: Local Developer Security
+  Fast feedback before code reaches GitHub
+
+Layer 2: Pull Request Security
+  Policy enforcement before insecure code is merged
+
+Layer 3: CI/CD Pipeline Security
+  Secure builds, releases, deployments, artifacts, and environments
+
+Enterprise Patterns
+  Reusable workflows, governance, quality gates, reporting, and scale
+```
+
+## How This Series Is Different
+
+This is not a "how to use Trivy" or "how to use Semgrep" series.
+
+The better question is:
+
+> How do we stop insecure code, vulnerable dependencies, leaked secrets, weak infrastructure, and risky containers from reaching production?
+
+Tools are part of the answer. But real security also needs good developer experience, clear ownership, clean feedback, quality gates, and a practical risk model.
+
+## Recommended Reading Order
+
+1. [CI/CD Security Fundamentals](./fundamentals/cicd-security-fundamentals)
+2. [Shift Left Security](./fundamentals/shift-left-security)
+3. [Where Should Security Run?](./fundamentals/where-should-security-run)
+4. [Security Before Git Push](./local-security/security-before-git-push)
+5. [pre-commit Security Scanning](./local-security/pre-commit-security-scanning)
+6. [Building Secure Pull Request Pipelines](./pull-request-security/building-secure-pr-pipelines)
+7. [Blocking Pull Requests Based on Risk](./security-gates/blocking-pull-requests-based-on-risk)
+8. [Developer-Friendly Security Feedback](./sarif-and-reporting/developer-friendly-security-feedback)
+9. [GitHub Actions Security](./ci-security/github-actions-security)
+10. [Securing the Software Supply Chain](./supply-chain-security/securing-software-supply-chain)
+11. [Scaling AppSec Across Repositories](./enterprise-patterns/scaling-appsec-across-repositories)
+
+## Series Principle
+
+Security should be close to developers, but not painful for developers.
+
+That means:
+
+- local checks should be fast,
+- pull request checks should be clear,
+- CI checks should be deeper,
+- release checks should be strict,
+- production checks should detect drift,
+- and enterprise controls should be reusable.
+

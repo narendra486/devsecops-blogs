@@ -1,0 +1,36 @@
+---
+id: pre-commit-security-scanning
+title: Setting Up pre-commit Security Scanning
+---
+
+# Setting Up pre-commit Security Scanning
+
+pre-commit is useful because it runs checks before code enters Git history.
+
+Start with high-confidence checks like secrets and basic file hygiene.
+
+```yaml
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+```
+
+Install and run:
+
+```bash
+pip install pre-commit
+pre-commit install
+pre-commit run --all-files
+```
+
+In enterprise teams, keep the pre-commit config simple. Pull request checks should be the real enforcement layer.
+

@@ -1,0 +1,51 @@
+---
+id: scaling-appsec-across-repositories
+title: Scaling AppSec Across Hundreds of Repositories
+---
+
+# Scaling AppSec Across Hundreds of Repositories
+
+Enterprise AppSec fails when every repository has a different security setup.
+
+The scalable model is centralized security automation with local ownership.
+
+## Architecture
+
+```mermaid
+flowchart TD
+  A[Security Workflow Repo] --> B[Service Repo 1]
+  A --> C[Service Repo 2]
+  A --> D[Service Repo 3]
+  E[Policy Config] --> A
+  F[AppSec Team] --> E
+  G[Developers] --> B
+  G --> C
+  G --> D
+  B --> H[Security Dashboard]
+  C --> H
+  D --> H
+```
+
+## Recommended Repos
+
+```text
+security-demo-app
+  vulnerable app, Dockerfile, Terraform, and GitHub Actions examples
+
+security-workflows
+  reusable SAST, SCA, IaC, secrets, container, and quality gate workflows
+
+security-screenshots
+  PR screenshots, SARIF examples, and reporting examples
+```
+
+## Enterprise Best Practices
+
+- use reusable workflows,
+- keep policy as code,
+- define severity thresholds,
+- make exceptions time-bound,
+- centralize reporting,
+- publish golden templates,
+- and keep developer feedback simple.
+

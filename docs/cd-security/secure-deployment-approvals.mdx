@@ -1,0 +1,22 @@
+---
+id: secure-deployment-approvals
+title: Secure Deployment Approvals
+---
+
+# Secure Deployment Approvals
+
+CD security starts when an artifact is ready to move toward production.
+
+Important controls are deployment approvals, signed artifacts, protected environments, and policy checks before production.
+
+```mermaid
+flowchart LR
+  A[Build Artifact] --> B[Scan]
+  B --> C[Sign]
+  C --> D[Staging Deploy]
+  D --> E[Approval]
+  E --> F[Production Deploy]
+```
+
+Approvals should be used for production risk, not for every small environment action.
+

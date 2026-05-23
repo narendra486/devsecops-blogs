@@ -1,0 +1,44 @@
+---
+id: where-should-security-run
+title: Where Should Security Run?
+description: A practical stage-by-stage model for CI/CD security controls.
+---
+
+# Where Should Security Run?
+
+Security tools are useful only when they run at the correct place.
+
+The same scanner can be helpful in one stage and painful in another stage.
+
+## Stage Map
+
+| Stage | Purpose | Should It Block? |
+| --- | --- | --- |
+| Local | Fast feedback | No, mostly developer choice |
+| Pre-Commit | Block obvious mistakes | Yes, for secrets and simple checks |
+| Pull Request | Enforce policy | Yes, for agreed high-risk issues |
+| CI Pipeline | Deep validation | Yes, for release-impacting issues |
+| Release | Final validation | Yes |
+| Runtime | Detect drift | Alert and create incident/work item |
+
+## Simple Rule
+
+Run checks early when they are fast and accurate.
+
+Run checks later when they are slow, expensive, or need full build context.
+
+## Practical Placement
+
+| Risk | Local | PR | CI | Release |
+| --- | --- | --- | --- | --- |
+| Secrets | Yes | Yes | Yes | Yes |
+| SAST | Selected rules | Yes | Yes | Sometimes |
+| SCA | Basic | Yes | Yes | Yes |
+| IaC | Optional | Yes | Yes | Yes |
+| Container image | No | Sometimes | Yes | Yes |
+| SBOM | No | No | Yes | Yes |
+| Signing | No | No | Yes | Yes |
+| Deployment approval | No | No | No | Yes |
+
+This model keeps developer feedback fast and production controls strict.
+
