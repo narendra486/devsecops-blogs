@@ -2,9 +2,6 @@
 
 Enterprise-grade Docusaurus documentation and blog platform focused on CI/CD Security, DevSecOps, SCM Security, GitHub Actions Security, Application Security, and Software Supply Chain Security.
 
-Author: **Narendra Palla**  
-Role: **Product Security Engineer**
-
 Live site:
 
 ```text

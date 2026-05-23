@@ -3,6 +3,7 @@
 const sidebars = {
   tutorialSidebar: [
     'introduction',
+    'about-me',
     {
       type: 'category',
       label: 'Foundations',
@@ -10,6 +11,7 @@ const sidebars = {
       items: [
         'cicd-security-fundamentals',
         'fundamentals-git-pr-scm-and-security-yaml',
+        'security-yaml-file-fundamentals',
         'shift-left-security',
         'best-practices',
       ],
