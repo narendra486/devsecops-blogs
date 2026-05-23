@@ -2,115 +2,86 @@
 
 const sidebars = {
   tutorialSidebar: [
-    'intro',
+    'introduction',
     'learning-path-yaml',
     {
       type: 'category',
-      label: 'Fundamentals',
+      label: 'Foundations',
+      collapsed: false,
       items: [
-        'fundamentals/cicd-security-fundamentals',
-        'fundamentals/where-should-security-run',
+        'cicd-security-fundamentals',
+        'shift-left-security',
+        'best-practices',
       ],
     },
     {
       type: 'category',
-      label: 'Shift Left Security',
+      label: 'SCM and GitHub Security',
+      collapsed: false,
       items: [
-        'fundamentals/shift-left-security',
+        'scm-security',
+        'github-security',
+        'branch-protection-and-rulesets',
       ],
     },
     {
       type: 'category',
-      label: 'Local Security',
+      label: 'GitHub Actions Security',
+      collapsed: false,
       items: [
-        'local-security/security-before-git-push',
-        'local-security/pre-commit-security-scanning',
+        'github-actions-security',
+        'self-hosted-runner-security',
+        'oidc-and-cloud-security',
+        'reusable-security-workflows',
       ],
     },
     {
       type: 'category',
-      label: 'PR Security',
+      label: 'Developer and PR Security',
       items: [
-        'pull-request-security/building-secure-pr-pipelines',
-        'pull-request-security/scanner-purpose-map',
+        'local-security-scanning',
+        'pre-commit-security',
+        'pull-request-security',
+        'sarif-and-pr-comments',
+        'security-quality-gates',
       ],
     },
     {
       type: 'category',
-      label: 'CI Security',
+      label: 'Security Testing',
       items: [
-        'ci-security/github-actions-security',
-        'ci-security/ci-security-overview',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'CD Security',
-      items: [
-        'cd-security/secure-deployment-approvals',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'GitHub Security',
-      items: [
-        'github-security/github-security-best-practices',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'SAST',
-      items: [
-        'sast/sast-in-ci-cd',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'SCA',
-      items: [
-        'sca/dependency-security-in-ci-cd',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'IaC Security',
-      items: [
-        'iac-security/scanning-terraform-and-kubernetes',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Container Security',
-      items: [
-        'container-security/securing-docker-images-in-ci-cd',
+        'sast-security',
+        'sca-security',
+        'secret-scanning',
+        'iac-security',
+        'container-security',
+        'kubernetes-security',
       ],
     },
     {
       type: 'category',
       label: 'Supply Chain Security',
       items: [
-        'supply-chain-security/securing-software-supply-chain',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'SARIF',
-      items: [
-        'sarif-and-reporting/developer-friendly-security-feedback',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Security Gates',
-      items: [
-        'security-gates/blocking-pull-requests-based-on-risk',
+        'supply-chain-security',
+        'sbom-and-slsa',
+        'artifact-signing',
+        'real-world-attacks',
       ],
     },
     {
       type: 'category',
       label: 'Enterprise DevSecOps',
       items: [
-        'enterprise-patterns/scaling-appsec-across-repositories',
+        'enterprise-devsecops',
+        'security-governance',
+        'policy-as-code',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Deployment',
+      items: [
+        'cloudflare-pages-deployment',
       ],
     },
   ],

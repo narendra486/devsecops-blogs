@@ -1,8 +1,8 @@
 // @ts-check
 
 const config = {
-  title: 'Practical CI/CD Security',
-  tagline: 'AppSec learning series for real engineering teams',
+  title: 'Enterprise CI/CD Security',
+  tagline: 'Practical DevSecOps, SCM Security, GitHub Actions Security, and Software Supply Chain Security',
   url: 'https://narendra486.github.io',
   baseUrl: '/devsecops-blogs/',
   organizationName: 'narendra486',
@@ -34,6 +34,8 @@ const config = {
         blog: {
           showReadingTime: true,
           routeBasePath: 'blog',
+          blogTitle: 'Enterprise CI/CD Security Blog',
+          blogDescription: 'Practical DevSecOps articles by Narendra Palla.',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -44,12 +46,12 @@ const config = {
 
   themeConfig: {
     navbar: {
-      title: 'Practical CI/CD Security',
+      title: 'Enterprise CI/CD Security',
       items: [
-        {to: '/', label: 'Learning Path', position: 'left'},
+        {to: '/', label: 'Docs', position: 'left'},
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com',
+          href: 'https://github.com/narendra486/devsecops-blogs',
           label: 'GitHub',
           position: 'right',
         },
@@ -61,16 +63,29 @@ const config = {
         {
           title: 'Series',
           items: [
-            {label: 'Fundamentals', to: '/fundamentals/cicd-security-fundamentals'},
-            {label: 'Shift Left', to: '/fundamentals/shift-left-security'},
-            {label: 'Pull Request Security', to: '/pull-request-security/building-secure-pr-pipelines'},
+            {label: 'CI/CD Fundamentals', to: '/cicd-security-fundamentals'},
+            {label: 'SCM Security', to: '/scm-security'},
+            {label: 'GitHub Actions Security', to: '/github-actions-security'},
+            {label: 'Supply Chain Security', to: '/supply-chain-security'},
+          ],
+        },
+        {
+          title: 'Deploy',
+          items: [
+            {label: 'GitHub Pages', href: 'https://narendra486.github.io/devsecops-blogs/'},
+            {label: 'Repository', href: 'https://github.com/narendra486/devsecops-blogs'},
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Practical CI/CD Security.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Narendra Palla. Built with Docusaurus.`,
     },
     prism: {
-      additionalLanguages: ['bash', 'docker', 'hcl', 'yaml'],
+      additionalLanguages: ['bash', 'docker', 'hcl', 'json', 'yaml'],
+    },
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
     },
   },
 };

@@ -1,42 +1,189 @@
-# Practical CI/CD Security
+# Enterprise CI/CD Security
 
-This is a Docusaurus learning series for developers, DevOps engineers, platform engineers, and AppSec teams.
+Enterprise-grade Docusaurus documentation and blog platform focused on CI/CD Security, DevSecOps, SCM Security, GitHub Actions Security, Application Security, and Software Supply Chain Security.
 
-The writing goal is simple: explain CI/CD security like real engineering work, not random tool notes.
+Author: **Narendra Palla**  
+Role: **Product Engineer and Product Security Engineer**
 
-## Public site
-
-GitHub Pages will publish the site automatically from the `main` branch:
+Live site:
 
 ```text
 https://narendra486.github.io/devsecops-blogs/
 ```
 
-## Local setup
+Repository:
+
+```text
+https://github.com/narendra486/devsecops-blogs
+```
+
+## What This Platform Teaches
+
+- CI/CD Security fundamentals
+- Shift Left Security
+- SCM and GitHub Security
+- GitHub Actions Security
+- Local and pre-commit scanning
+- Pull Request Security
+- SAST, SCA, secret scanning, IaC scanning, and container scanning
+- Kubernetes Security in CI/CD
+- SARIF and PR security comments
+- Security Quality Gates
+- Reusable security workflows
+- Supply Chain Security
+- SBOM, SLSA, and artifact signing
+- OIDC and secure cloud deployments
+- Self-hosted runner security
+- Enterprise DevSecOps governance
+- Policy as Code
+- Real-world CI/CD attacks
+
+## Project Structure
+
+```text
+docs/
+blog/
+static/
+src/
+.github/workflows/
+scripts/
+```
+
+## Install
 
 ```bash
 npm install
+```
+
+## Local Development
+
+```bash
 npm start
 ```
 
-## Series direction
+For this GitHub Pages project, local Docusaurus runs at:
 
-- Start with fundamentals and shift-left thinking.
-- Move into local developer security.
-- Enforce security in pull requests.
-- Build CI/CD quality gates.
-- Scale with reusable workflows and enterprise governance.
+```text
+http://localhost:3000/devsecops-blogs/
+```
 
-## Writing standard
+## Build
 
-Each major article should include:
+```bash
+npm run build
+```
 
-- Problem statement
-- Why it matters
-- Real incident or realistic failure mode
-- Architecture diagram
-- Tool purpose
-- Workflow YAML or command examples
-- False positive handling
+## Serve Production Build Locally
+
+```bash
+npm run serve
+```
+
+## Generate Enterprise Content
+
+The large documentation and blog series is generated from:
+
+```text
+scripts/generate-enterprise-content.mjs
+```
+
+Run:
+
+```bash
+node scripts/generate-enterprise-content.mjs
+```
+
+Then build and review:
+
+```bash
+npm run build
+```
+
+## GitHub Pages Deployment
+
+GitHub Pages deployment is configured in:
+
+```text
+.github/workflows/deploy-github-pages.yml
+```
+
+Flow:
+
+```text
+Push to main
+  -> GitHub Actions
+  -> npm ci
+  -> npm run build
+  -> Upload Pages artifact
+  -> Deploy to GitHub Pages
+```
+
+GitHub repository settings:
+
+```text
+Settings
+  -> Pages
+  -> Source: GitHub Actions
+```
+
+The Docusaurus config uses:
+
+```js
+url: 'https://narendra486.github.io'
+baseUrl: '/devsecops-blogs/'
+```
+
+## Cloudflare Pages Deployment
+
+Cloudflare Pages can also host this project.
+
+Cloudflare Pages settings:
+
+```text
+Framework preset: Docusaurus
+Build command: npm run build
+Build output directory: build
+Node.js version: 24
+```
+
+Recommended environment variable:
+
+```text
+NODE_VERSION=24
+```
+
+For a custom domain on Cloudflare Pages, update `docusaurus.config.js`:
+
+```js
+url: 'https://your-domain.com'
+baseUrl: '/'
+```
+
+For the current GitHub Pages deployment, keep:
+
+```js
+url: 'https://narendra486.github.io'
+baseUrl: '/devsecops-blogs/'
+```
+
+## Content Standard
+
+Every major article should include:
+
+- Introduction
+- Real-world scenario
+- Architecture overview with Mermaid
+- Technical deep dive
+- YAML examples
+- Vulnerable and secure examples
+- Security risks
+- Mitigation
+- PR experience
 - Enterprise recommendations
-- Best practices
+- Summary
+
+## Writing Style
+
+The writing is simple, practical, and engineering-focused.
+
+The goal is not to write tool documentation. The goal is to teach how real teams secure real CI/CD systems.
