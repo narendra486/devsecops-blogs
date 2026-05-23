@@ -10,6 +10,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'cicd-security-fundamentals',
+        'fundamentals-git-pr-scm-and-security-yaml',
         'shift-left-security',
         'best-practices',
       ],
