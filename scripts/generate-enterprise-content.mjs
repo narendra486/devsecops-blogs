@@ -88,7 +88,7 @@ description: ${purpose}
 # ${title}
 
 Author: ${author}  
-Role: Product Engineer and Product Security Engineer
+Role: Product Security Engineer
 
 ## What This Page Covers
 
