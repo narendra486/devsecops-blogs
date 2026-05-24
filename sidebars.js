@@ -4,6 +4,7 @@ const sidebars = {
   tutorialSidebar: [
     'introduction',
     'about-me',
+    'writing-style-guide',
     {
       type: 'category',
       label: 'Foundations',

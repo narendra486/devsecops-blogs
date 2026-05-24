@@ -1,0 +1,137 @@
+---
+id: writing-style-guide
+title: Writing Style Guide
+description: Writing rules for Narendra Palla's DevSecOps blogs and documentation.
+---
+
+# Writing Style Guide
+
+This guide is for all blogs and docs in this site.
+
+The writing should feel like a real DevSecOps engineer explaining implementation experience to another engineer.
+
+## Tone
+
+Use simple English.
+
+Use natural Indian English style.
+
+Keep it practical and direct.
+
+Do not write like official product marketing. Do not write like a textbook.
+
+Small imperfections are fine. It should feel human-written.
+
+## Audience
+
+Write for:
+
+- Developers
+- DevOps engineers
+- Platform engineers
+- Security engineers
+- Product security engineers
+- Security champions
+- Students learning DevSecOps
+
+## Writing Flow
+
+Each important blog should follow this flow:
+
+1. Why this topic matters in real projects.
+2. What the actual security problem is.
+3. How attackers misuse it.
+4. How teams usually configure it wrongly.
+5. How to secure it properly.
+6. Practical GitHub Actions YAML or command examples.
+7. Vulnerable example and secure fix.
+8. Common mistakes.
+9. Best practices followed in real organizations.
+10. Practical recommendations.
+
+## Preferred Style
+
+Use lines like this:
+
+```text
+Nowadays most deployments are automated using CI/CD pipelines.
+If pipeline security is weak, attackers can inject malicious code directly into production applications.
+```
+
+```text
+One common mistake I observed is giving write permissions to all GitHub Actions workflows by default.
+```
+
+```text
+Many teams enable security scanning but do not configure PR blocking properly.
+```
+
+## Avoid These Words
+
+Do not use:
+
+- Delve
+- Paradigm
+- Landscape
+- Robust
+- Leverage
+- Seamless
+- Cutting-edge
+- Comprehensive overview
+- Transformative
+- Revolutionize
+- Holistic
+
+## Practical Content Rules
+
+Prefer implementation over theory.
+
+For every security topic, explain:
+
+- Why it matters
+- How attackers misuse it
+- What wrong configuration looks like
+- What secure configuration looks like
+- Where to place the YAML file
+- What permissions are needed
+- What PR failure or scanner output looks like
+
+## Code Examples
+
+Use code blocks often.
+
+Add comments inside YAML where it helps:
+
+```yaml
+name: pr-security
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read          # Required to read repository code
+  security-events: write  # Required to upload SARIF
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run secret scan
+        run: |
+          echo "Run gitleaks or trufflehog here"
+```
+
+## Good Blog Ending
+
+End with practical recommendations.
+
+Example:
+
+```text
+Start with simple PR checks. Make secrets blocking first. Then add SAST, SCA, IaC, and container scans slowly. Do not block everything on day one. Tune findings first, then enforce.
+```
+

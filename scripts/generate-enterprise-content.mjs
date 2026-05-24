@@ -3,6 +3,12 @@ import {dirname} from 'node:path';
 
 const author = 'Narendra Palla';
 
+const writingStyleNote = `Write like a real DevSecOps engineer sharing implementation notes.
+Use simple English and natural Indian English style.
+Avoid marketing tone, academic tone, and polished AI-style wording.
+Do not use words like delve, paradigm, landscape, robust, leverage, seamless, cutting-edge, comprehensive overview, transformative, revolutionize, or holistic.
+Always explain why it matters, how attackers misuse it, common wrong configuration, and the secure fix.`;
+
 const docs = [
   ['introduction', 'Introduction', 'The complete starting point for practical CI/CD Security and Enterprise DevSecOps learning.', ['DevSecOps flow', 'How to use this platform', 'Learning path', 'Audience and outcomes']],
   ['cicd-security-fundamentals', 'CI/CD Security Fundamentals', 'Why CI/CD pipelines are production trust boundaries and how attackers abuse weak delivery systems.', ['CI/CD basics', 'Pipeline attack surface', 'Shared responsibility', 'Security maturity levels']],
@@ -87,15 +93,20 @@ description: ${purpose}
 
 # ${title}
 
+<!--
+Writing style:
+${writingStyleNote}
+-->
+
 ## What This Page Covers
 
 ${purpose}
 
-This page is written in simple engineering language. The goal is to help developers and security teams understand the real problem, where it fails in CI/CD, and how to fix it with practical controls.
+This page is written in simple engineering language. The goal is to explain the real problem, where it fails in CI/CD, and how to fix it with practical controls.
 
 ## Why It Matters
 
-In real teams, security fails when it is added too late or when tools give noisy feedback. CI/CD security should be close to the developer workflow, but it should also be strong enough for enterprise governance.
+In real teams, security fails when it is added too late or when tools give noisy feedback. CI/CD security should be close to the developer workflow, and it should still support enterprise governance.
 
 Common failure points:
 
@@ -130,9 +141,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  security-events: write
-  pull-requests: write
+  contents: read          # Required to read repository code
+  security-events: write  # Required to upload SARIF
+  pull-requests: write    # Required to add PR comments
 
 jobs:
   security-check:
@@ -230,6 +241,11 @@ tags: [devsecops, cicd-security, appsec, github-actions]
 
 CI/CD security is practical engineering work. In this part, we will learn **${title}** slowly, with real examples and simple explanations.
 
+<!--
+Writing style:
+${writingStyleNote}
+-->
+
 <!-- truncate -->
 
 ## Introduction
@@ -283,9 +299,9 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
-  security-events: write
-  pull-requests: write
+  contents: read          # Required to read repository code
+  security-events: write  # Required to upload SARIF
+  pull-requests: write    # Required to add PR comments
 
 jobs:
   security:
