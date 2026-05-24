@@ -7,7 +7,7 @@
     "build": "docusaurus build",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
-    "generate:content": "node scripts/generate-enterprise-content.mjs"
+    "generate:content": "node scripts/rewrite-practical-content.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.1",

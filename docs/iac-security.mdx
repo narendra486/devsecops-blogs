@@ -1,158 +1,100 @@
 ---
 id: iac-security
 title: IaC Security
-
-description: Scan Terraform, Kubernetes manifests, and cloud configuration before deployment.
+description: Scan Terraform, Kubernetes YAML, and cloud configuration.
 ---
 
 # IaC Security
 
-## What This Page Covers
+## Why This Matters
 
-Scan Terraform, Kubernetes manifests, and cloud configuration before deployment.
+Infrastructure code can create public cloud risk very quickly.
 
-This page is written in simple engineering language. The goal is to help developers and security teams understand the real problem, where it fails in CI/CD, and how to fix it with practical controls.
+## Actual Security Problem
 
-## Why It Matters
+A small Terraform change can open SSH to the internet or disable encryption.
 
-In real teams, security fails when it is added too late or when tools give noisy feedback. CI/CD security should be close to the developer workflow, but it should also be strong enough for enterprise governance.
+In real implementation, the issue is not only the tool. The main issue is where the check runs, what permission it gets, and whether the result blocks risky code.
 
-Common failure points:
+## How Attackers Misuse It
 
-- secrets reach Git history,
-- vulnerable dependencies merge quietly,
-- pull requests do not have required security checks,
-- workflows run with broad permissions,
-- containers are deployed without image scanning,
-- cloud deployments use long-lived secrets,
-- and security findings are hidden inside CI logs.
+Attackers search for exposed storage, public databases, weak IAM, and open network rules.
 
-## Architecture Overview
+They do not always need a zero-day. Many times they use normal engineering paths like pull requests, package updates, workflow changes, or leaked credentials.
 
-```mermaid
-flowchart LR
-    Dev[Developer] --> Commit[Git Commit]
-    Commit --> PR[Pull Request]
-    PR --> SAST[SAST Scan]
-    PR --> SCA[SCA Scan]
-    PR --> Secrets[Secret Scan]
-    PR --> IaC[IaC Scan]
-    PR --> Container[Container Scan]
-    SAST --> Gate[Security Quality Gate]
-    SCA --> Gate
-    Secrets --> Gate
-    IaC --> Gate
-    Container --> Gate
-    Gate --> Merge[Merge PR]
-    Merge --> Build[Secure Build]
-    Build --> Sign[Sign Artifact]
-    Sign --> Deploy[Secure Deployment]
+## Common Wrong Setup
+
+Teams review application code carefully but merge Terraform changes without security checks.
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: unsafe-app
+spec:
+  containers:
+    - name: app
+      image: nginx:latest
+      securityContext:
+        privileged: true
 ```
 
-The main idea is simple. Fast checks should run early. Deep checks should run in CI. High-risk findings should block pull requests or releases. Developers should see clear feedback in the PR.
+What is wrong here:
 
-## Key Topics
+- The workload runs with unsafe privilege.
+- The image tag is not pinned.
+- A small config change can create a cloud or cluster risk.
+- This should fail in PR before deployment.
 
-- Checkov
-- tfsec
-- Trivy config
-- KICS
-- Cloud misconfigurations
-
-## Practical YAML Example
+## Practical Implementation
 
 ```yaml
 name: iac-security
-
 on:
   pull_request:
-    branches: [main]
-  workflow_dispatch:
-
 permissions:
   contents: read
   security-events: write
-  pull-requests: write
-
 jobs:
-  security-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Run security control
-        run: |
-          echo "Run IaC Security checks here"
-          echo "Upload SARIF or comment on PR when possible"
-```
-
-## Vulnerable Example
-
-```yaml
-permissions: write-all
-
-jobs:
-  unsafe-job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - run: echo "$CLOUD_SECRET"
-```
-
-Problems in this example:
-
-- workflow token is too powerful,
-- action is not pinned to a safe version or SHA,
-- secret handling is careless,
-- and there is no clear policy gate.
-
-## Secure Example
-
-```yaml
-permissions:
-  contents: read
-  security-events: write
-
-jobs:
-  secure-job:
+  trivy-config:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run controlled check
-        run: |
-          echo "Run scanner with least privilege"
+      - uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: config
+          format: sarif
+          output: trivy-config.sarif
+      - uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-config.sarif
 ```
 
-## PR Experience
+## Useful Commands
 
-A good PR security comment should not only say "scan failed".
+```bash
+checkov -d .
+trivy config .
+tfsec .
+```
+
+## Example Result
 
 ```text
-Security check failed
-
-High: 1
-Medium: 3
-
-Blocking reason:
-- High severity issue affects code changed in this PR.
-
-Next step:
-- Review inline SARIF annotation.
-- Apply suggested fix.
-- Re-run the workflow.
+Checkov failed: security group allows 0.0.0.0/0 on port 22.
 ```
 
-## Enterprise Recommendations
+## Secure Fix
 
-- Use required checks on protected branches.
-- Upload SARIF for code-level findings.
-- Use PR comments for readable summaries.
-- Keep severity thresholds clear.
-- Allow risk acceptance only with owner, reason, and expiry.
-- Move common logic into reusable workflows.
-- Track findings centrally across repositories.
+Run IaC scanning in PR and block critical cloud misconfigurations.
 
-## Summary
+Also make sure the check is required in GitHub rulesets or branch protection. Otherwise it only reports and does not stop risky code.
 
-IaC Security is not only a tool topic. It is part of secure software delivery. Start with the risk, place the control in the right CI/CD stage, and make feedback easy for developers to act on.
+## Practical Recommendations
+
+- Start with high-confidence checks.
+- Keep permissions minimum.
+- Put security feedback in the pull request.
+- Make only important checks blocking in the beginning.
+- Tune false positives before strict enforcement.
+- Track exceptions with owner, reason, and expiry.

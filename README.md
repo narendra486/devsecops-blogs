@@ -76,18 +76,18 @@ npm run build
 npm run serve
 ```
 
-## Generate Enterprise Content
+## Generate Practical Content
 
-The large documentation and blog series is generated from:
+The documentation and blog series is generated from:
 
 ```text
-scripts/generate-enterprise-content.mjs
+scripts/rewrite-practical-content.mjs
 ```
 
 Run:
 
 ```bash
-node scripts/generate-enterprise-content.mjs
+npm run generate:content
 ```
 
 Then build and review:
@@ -178,9 +178,3 @@ Every major article should include:
 - PR experience
 - Enterprise recommendations
 - Summary
-
-## Writing Style
-
-The writing is simple, practical, and engineering-focused.
-
-The goal is not to write tool documentation. The goal is to teach how real teams secure real CI/CD systems.
